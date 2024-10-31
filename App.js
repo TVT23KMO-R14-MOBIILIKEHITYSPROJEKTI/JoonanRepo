@@ -1,25 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Header from './components/Header'
 import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaProvider>
+      <PaperProvider>
+        <SafeAreaView style={styles.safeArea}>
+          <View style={styles.container}>
 
-      <Header style={styles.header} />
+            <Header style={styles.header} />
 
-      <View style={styles.content}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+            <View style={styles.content}>
+              <Text>Open up App.js to start working on your app!</Text>
+            </View>
 
-      <Footer style={styles.footer} />
+            <Footer style={styles.footer} />
 
-    </View>
+          </View>
+        </SafeAreaView>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
