@@ -4,11 +4,15 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Header from './components/Header'
 import Footer from './components/Footer';
+import theme from './styles/theme'
 
 export default function App() {
+
+
+  
   return (
     <SafeAreaProvider>
-      <PaperProvider>
+      <PaperProvider theme={theme}>
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.container}>
 
@@ -33,14 +37,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.secondary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   header: {
     height: 50,
-    borderColor: 'black', // Add this line
-    borderWidth: 1,
   },
   content: {
     flex: 1,
@@ -52,7 +54,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   footer: {
-    backgroundColor: 'green',
     height: 50,
   },
 });
