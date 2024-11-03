@@ -1,25 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { IconButton, Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import Header from './components/Header'
 import Footer from './components/Footer';
-import theme from './styles/theme'
+import useTheme from './styles/theme'
 
 export default function App() {
 
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  
+  const theme = useTheme(isDarkTheme);
+
+  const toggleTheme = () => {
+    setIsDarkTheme(prevTheme => !prevTheme);
+  };
+
   return (
     <SafeAreaProvider>
       <PaperProvider theme={theme}>
         <SafeAreaView style={styles.safeArea}>
-          <View style={styles.container}>
+          <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
 
             <Header style={styles.header} />
 
-            <View style={styles.content}>
+            <View style={[styles.content, { backgroundColor: theme.colors.primary }]}>
               <Text>Open up App.js to start working on your app!</Text>
+              <TouchableOpacity onPress={toggleTheme}>
+                <Icon name="dark-mode" size={30} color={theme.colors.toggleButtonColor} />
+              </TouchableOpacity>
             </View>
 
             <Footer style={styles.footer} />
@@ -37,7 +48,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: theme.colors.secondary,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -46,7 +56,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    backgroundColor: '#f0daf2',
     justifyContent: 'center',
     alignItems: 'center',
     width: '90%',
